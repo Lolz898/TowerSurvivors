@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour
         transform.localScale = new Vector3(size, size, 1);
 
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = -transform.right * speed;
+        rb.velocity = transform.up * speed;
 
         // Set the lifetime of the projectile
         Destroy(gameObject, lifetime);
@@ -25,8 +25,7 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        // Set the velocity to move the projectile in its forward direction
-        // rb.velocity = transform.up * speed;
+        
     }
 
     // Function to set the damage of the projectile

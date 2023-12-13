@@ -8,9 +8,9 @@ public class CameraController : MonoBehaviour
     public float panBorderThickness = 10f;
     public float scrollSpeed = 10f;
     public float minZoom = 5f;
-    public float maxZoom = 20f;
-    public float maxX = 50f;
-    public float maxY = 50f;
+    public float maxZoom = 15f;
+    public float maxX = 40f;
+    public float maxY = 40f;
 
     // Update is called once per frame
     void Update()

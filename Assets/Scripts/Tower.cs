@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+    public int goldCost = 10;
     public int health = 50;
     public float range = 6f;
     public int damage = 1;

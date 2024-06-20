@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance; // Singleton instance
 
-    public static int gold = 0;
+    public static int gold = 100;
     public static int playerHP = 10;
     public bool isGamePaused = false;
 

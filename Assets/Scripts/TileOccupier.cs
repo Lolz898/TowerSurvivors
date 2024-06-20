@@ -48,6 +48,12 @@ public class TileOccupier : MonoBehaviour
         }
     }
 
+    public Vector3 GetCellCentre(Vector3 clickPosition)
+    {
+        Vector3Int cellPosition = tilemap.WorldToCell(clickPosition);
+        return tilemap.GetCellCenterWorld(cellPosition);
+    }
+
     public bool CheckIfCellOccupied(Vector3 position)
     {
         if (tilemap == null)

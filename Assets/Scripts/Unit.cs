@@ -34,6 +34,7 @@ public class Unit : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        agent.speed = moveSpeed;
 
     }
 

@@ -38,4 +38,18 @@ public class GridHighlight : MonoBehaviour
             }
         }
     }
+
+    public void ClearHighlights()
+    {
+        // Loop through all cells in the tilemap and clear the highlight
+        BoundsInt bounds = highlightTilemap.cellBounds;
+        foreach (var pos in bounds.allPositionsWithin)
+        {
+            // Check if the cell is not the highlighted cell and is not occupied
+            if (!tileOccupier.CheckIfCellOccupied(pos))
+            {
+                highlightTilemap.SetTile(pos, null);
+            }
+        }
+    }
 }

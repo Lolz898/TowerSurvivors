@@ -32,7 +32,7 @@ public class TowerButton : MonoBehaviour
             Debug.LogWarning("Tower does not have a SpriteRenderer attached.");
         }
 
-        costText.text = "$" + towerData.goldCost.ToString(); // Use goldCost from Tower class
+        costText.text = "$" + towerData.towerData.goldCost.ToString(); // Use goldCost from Tower class
 
         // Set other visuals as needed
     }

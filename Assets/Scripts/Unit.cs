@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,25 +18,39 @@ public enum UnitState
 public class Unit : MonoBehaviour
 {
     public bool isEnemy = true;
-    public int hp = 1;
+    public int maxhp = 1;
+    public int currenthp = 0;
     public float moveSpeed = 3f;
     public float sightRange = 5f;
     public float attackRange = 0.5f;
     public float attackSpeed = 1f;
     public int attackDamage = 1;
+    public int goldReward = 0;
+    public int xpReward = 0;
 
-    private Transform target;
+    [SerializeField] private Transform target;
     private NavMeshAgent agent;
     [SerializeField] private UnitState currentState = UnitState.Idle;
     private Transform playerBase;
+    private GameManager gameManager;
+    private Healthbar healthbar;
 
     private void Start()
     {
+        gameManager = GameManager.instance;
+
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.speed = moveSpeed;
 
+        currenthp = maxhp;
+        healthbar = GetComponentInChildren<Healthbar>();
+
+        if (healthbar == null)
+        {
+            Debug.LogError("HealthBar component not found in children.");
+        }
     }
 
     private void Update()
@@ -93,7 +108,6 @@ public class Unit : MonoBehaviour
         if (closestTarget != null)
         {
             target = closestTarget;
-            Debug.Log("Target set to " + target);
         }
 
         // Handle specific cases for enemy units
@@ -102,14 +116,12 @@ public class Unit : MonoBehaviour
             if (playerBase != null && target != playerBase)
             {
                 target = playerBase;
-                Debug.Log("No target, setting base to target!");
             }
         }
         // Handle the case where the target is out of sight range
         else if (target != null && Vector3.Distance(transform.position, target.position) > sightRange)
         {
             target = null;
-            Debug.Log("Target out of range, setting target to null!");
         }
     }
 
@@ -122,19 +134,30 @@ public class Unit : MonoBehaviour
         {
             if (isEnemy && !unitTarget.isEnemy)
             {
+                unitTarget = null;
                 return true;
             }
             else if (!isEnemy && unitTarget.isEnemy) 
-            { 
+            {
+                unitTarget = null;
                 return true; 
             }
             else
             {
+                unitTarget = null;
                 return false;
             }
         }
+
+        Tower towerTarget = potentialTarget.GetComponent<Tower>();
+        if (towerTarget)
+        {
+            towerTarget = null;
+            return true;
+        }
         else
         {
+            towerTarget = null;
             return false;
         }
     }
@@ -197,6 +220,10 @@ public class Unit : MonoBehaviour
         {
             target.GetComponent<Unit>().TakeDamage(attackDamage);
         }
+        else if (target.GetComponent<Tower>() != null)
+        {
+            target.GetComponent<Tower>().TakeDamage(attackDamage);
+        }
 
         // Set a cooldown for the next attack based on attack speed
         StartCoroutine(AttackCooldown());
@@ -210,9 +237,10 @@ public class Unit : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        hp -= damage;
+        currenthp -= damage;
+        healthbar.SetHealth((float)currenthp / maxhp);
 
-        if (hp <= 0)
+        if (currenthp <= 0)
         {
             Die();
         }
@@ -221,8 +249,8 @@ public class Unit : MonoBehaviour
     private void Die()
     {
         SetState(UnitState.Dead);
-        // Additional logic for death state
-        Debug.Log("Unit died!");
+        gameManager.ChangeGold(goldReward);
+        gameManager.ChangeXP(xpReward);
         Destroy(gameObject);
     }
 

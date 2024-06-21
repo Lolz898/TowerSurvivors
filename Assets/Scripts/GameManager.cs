@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
 
     public static int gold = 100;
     public static int playerHP = 10;
+    public static int playerXP = 0;
+    public int playerLevel = 0;
+    public int nextLevel = 50;
     public bool isGamePaused = false;
 
     public GameObject playerBase;
@@ -17,6 +20,9 @@ public class GameManager : MonoBehaviour
 
     public delegate void GoldChanged();
     public GoldChanged OnGoldChanged;
+    
+    public delegate void XPChanged();
+    public XPChanged OnXPChanged;
 
     // Other game-related variables and references can be added here
 
@@ -45,6 +51,12 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             ChangeGold(10);
+        }
+        
+        // Example: Add 10 gold with the "G" key
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            ChangeXP(5);
         }
 
         // Example: Toggle pause with the "P" key or Escape key
@@ -80,6 +92,24 @@ public class GameManager : MonoBehaviour
         playerHP = amount;
         // Update UI or perform other actions related to gold
         OnHealthChanged?.Invoke();
+
+    }public void ChangeXP(int amount)
+    {
+        playerXP += amount;
+        // Update UI or perform other actions related to gold
+        OnXPChanged?.Invoke();
+    }
+
+    public void SetXP(int amount)
+    {
+        playerXP = amount;
+        // Update UI or perform other actions related to gold
+        OnXPChanged?.Invoke();
+    }
+
+    public int GetXP()
+    {
+        return playerXP;
     }
 
     void TogglePauseGame()

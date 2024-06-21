@@ -36,13 +36,9 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("collision hit");
-
         // Check if the collision is with a valid enemy unit
         if (IsValidTarget(collision.collider))
         {
-            Debug.Log("valid hit");
-
             // Deal damage to the enemy unit and destroy the projectile
             collision.collider.GetComponent<Unit>().TakeDamage(damage);
             Destroy(gameObject);

@@ -70,7 +70,7 @@ public class TowerPlacementManager : MonoBehaviour
         }
 
         currentTower = tower;
-        currentTowerCost = tower.goldCost;
+        currentTowerCost = tower.towerData.goldCost;
 
         // Check if player can afford the tower
         if (CanAffordTower(currentTowerCost))

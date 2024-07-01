@@ -48,6 +48,30 @@ public class TileOccupier : MonoBehaviour
         }
     }
 
+    public void DeOccupyTiles(Vector3 position)
+    {
+        if (tilemap == null)
+        {
+            Debug.LogError("Tilemap component not assigned. Make sure to call Start or assign the Tilemap manually.");
+            return;
+        }
+
+        Vector3Int cellPosition = tilemap.WorldToCell(position);
+
+        // Clear the cells
+        for (int x = cellPosition.x; x < cellPosition.x + width; x++)
+        {
+            for (int y = cellPosition.y; y < cellPosition.y + height; y++)
+            {
+                if (GridIsValid(x, y))
+                {
+                    tilemap.SetTile(new Vector3Int(x, y, cellPosition.z), null);
+                    Debug.Log("De-occupying at: (" + x + "," + y + ")");
+                }
+            }
+        }
+    }
+
     public Vector3 GetCellCentre(Vector3 clickPosition)
     {
         Vector3Int cellPosition = tilemap.WorldToCell(clickPosition);

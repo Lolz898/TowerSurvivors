@@ -10,8 +10,6 @@ public class TowerMenuController : MonoBehaviour
     public GameObject towerButtonPrefab; // Prefab of the TowerButton UI element
     public Transform buttonContainer; // Parent transform where tower buttons will be instantiated
 
-    public Tower towerPrefab; // Temporary storage for testing buttons until other gameplay has been added, will eventually have towers sent from levelling up
-
     private RectTransform menuContainer;
     private Vector3 onScreenPosition;
     private Vector3 offScreenPosition;
@@ -25,8 +23,6 @@ public class TowerMenuController : MonoBehaviour
         // Initialize on and off-screen positions
         offScreenPosition = menuContainer.anchoredPosition;
         onScreenPosition = new Vector3(offScreenPosition.x, offScreenPosition.y + 54f, offScreenPosition.z);
-
-        AddTowerButton(towerPrefab);
     }
 
     void Update()
@@ -44,7 +40,7 @@ public class TowerMenuController : MonoBehaviour
         }
     }
 
-    void AddTowerButton(Tower tower)
+    public void AddTowerButton(Tower tower)
     {
         GameObject buttonGO = Instantiate(towerButtonPrefab, buttonContainer);
         TowerButton button = buttonGO.GetComponent<TowerButton>();

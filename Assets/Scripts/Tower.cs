@@ -10,10 +10,15 @@ public class Tower : MonoBehaviour
     private Healthbar healthbar;
     private TowerTargeting targetingScript;
     private IAttack attackScript;
+    private TileOccupier tileOccupier;
+    private GameManager gameManager;
 
     private void Start()
     {
         InitializeTower();
+
+        gameManager = GameManager.instance;
+        tileOccupier = gameManager.GetComponentInChildren<TileOccupier>();
     }
 
     private void InitializeTower()
@@ -91,6 +96,7 @@ public class Tower : MonoBehaviour
     private void Die()
     {
         // TODO: Implement death logic, e.g., play death animation, remove object, etc.
+        tileOccupier.DeOccupyTiles(transform.position);
         Destroy(gameObject);
     }
 }

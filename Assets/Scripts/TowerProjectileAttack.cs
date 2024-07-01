@@ -16,25 +16,47 @@ public class ProjectileAttack : MonoBehaviour, IAttack
             Debug.LogError("Tower component not found on the same GameObject as TowerTargeting.");
         }
     }
-
     public void PerformAttack(Transform target)
     {
         if (canAttack)
         {
-            GameObject newProjectile = Instantiate(tower.towerData.projectile, transform.position, transform.rotation);
-            Projectile projectileScript = newProjectile.GetComponent<Projectile>();
-
-            if (projectileScript != null)
-            {
-                projectileScript.SetDamage(tower.towerData.damage);
-            }
-
-            Vector3 directionToTarget = (target.position - transform.position).normalized;
-            Quaternion rotationToTarget = Quaternion.LookRotation(Vector3.forward, directionToTarget);
-            newProjectile.transform.rotation = rotationToTarget;
-
-            StartCoroutine(AttackCooldown());
+            StartCoroutine(ShootProjectiles(target));
         }
+    }
+
+    private IEnumerator ShootProjectiles(Transform target)
+    {
+        StartCoroutine(AttackCooldown());
+
+        for (int i = 0; i < tower.towerData.projectileCount; i++)
+        {
+            ShootProjectile(target);
+            yield return new WaitForSeconds(0.0f); // Optional delay between each projectile
+        }
+    }
+
+    private void ShootProjectile(Transform target)
+    {
+        GameObject newProjectile = Instantiate(tower.towerData.projectile, transform.position, transform.rotation);
+        Projectile projectileScript = newProjectile.GetComponent<Projectile>();
+
+        if (projectileScript != null)
+        {
+            projectileScript.SetDamage(tower.towerData.damage);
+        }
+
+        float angleDeviation = 0f;
+
+        // Apply random deviation only if there are multiple projectiles
+        if (tower.towerData.projectileCount > 1)
+        {
+            angleDeviation = Random.Range(-10f, 10f); // 20 degrees deviation in total
+        }
+
+        Vector3 directionToTarget = (target.position - transform.position).normalized;
+        Quaternion rotationToTarget = Quaternion.LookRotation(Vector3.forward, directionToTarget);
+        rotationToTarget *= Quaternion.Euler(0, 0, angleDeviation);
+        newProjectile.transform.rotation = rotationToTarget;
     }
 
     private IEnumerator AttackCooldown()

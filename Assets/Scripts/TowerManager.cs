@@ -8,6 +8,7 @@ public class TowerManager : MonoBehaviour
 
     public List<TowerData> allTowers;
     private Dictionary<int, TowerData> towerDictionary;
+    private List<int> pickedTowerIds; // List to keep track of picked towers
 
     private void Awake()
     {
@@ -16,6 +17,7 @@ public class TowerManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
             InitializeTowerDictionary();
+            pickedTowerIds = new List<int>(); // Initialize the picked towers list
         }
         else
         {
@@ -43,5 +45,36 @@ public class TowerManager : MonoBehaviour
     {
         towerDictionary.TryGetValue(id, out TowerData tower);
         return tower;
+    }
+
+    public void PickTower(int id)
+    {
+        if (towerDictionary.ContainsKey(id) && !pickedTowerIds.Contains(id))
+        {
+            pickedTowerIds.Add(id);
+            towerDictionary.Remove(id);
+        }
+        else
+        {
+            Debug.LogWarning("Tower ID " + id + " not found or already picked.");
+        }
+    }
+
+    public List<TowerData> GetAvailableTowers()
+    {
+        List<TowerData> availableTowers = new List<TowerData>();
+        foreach (TowerData tower in allTowers)
+        {
+            if (!pickedTowerIds.Contains(tower.id))
+            {
+                availableTowers.Add(tower);
+            }
+        }
+        return availableTowers;
+    }
+
+    public bool IsTowerPicked(int id)
+    {
+        return pickedTowerIds.Contains(id);
     }
 }

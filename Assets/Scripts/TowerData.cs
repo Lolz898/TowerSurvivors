@@ -17,4 +17,5 @@ public class TowerData : ScriptableObject
     public bool isProjectile = false;
     public bool isArea = false;
     public GameObject projectile;
+    public int projectileCount = 1;
 }

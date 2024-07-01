@@ -5,6 +5,7 @@ using UnityEngine;
 public class XPManager : MonoBehaviour
 {
     private GameManager gameManager;
+    public LevelUpMenuManager levelUpMenuManager;
 
     private void Start()
     {
@@ -32,9 +33,9 @@ public class XPManager : MonoBehaviour
             gameManager.ChangeXP(-(gameManager.nextLevel));
 
             // Increase the XP required for the next level (example logic)
-            gameManager.nextLevel += 10;
+            gameManager.nextLevel += 20;
 
-            Debug.Log("Player leveled up! New level: " + gameManager.playerLevel);
+            levelUpMenuManager.ShowLevelUpOptions();
         }
     }
 }

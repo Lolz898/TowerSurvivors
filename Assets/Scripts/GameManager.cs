@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static int playerHP = 10;
     public static int playerXP = 0;
     public int playerLevel = 0;
-    public int nextLevel = 50;
+    public int nextLevel = 70;
     public bool isGamePaused = false;
 
     public GameObject playerBase;

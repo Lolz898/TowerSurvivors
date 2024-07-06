@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   towerName: Gun Turret
+  towerDescription: Basic turret that shoots projectiles directly at its target.
   towerPrefab: {fileID: 6029465199736580131, guid: c620d2127d956da46a2b24dcd302c118, type: 3}
   icon: {fileID: 21300000, guid: e1ad30d3f7732e44c8b85057d93fd4ad, type: 3}
   goldCost: 10
@@ -24,3 +25,4 @@ MonoBehaviour:
   isProjectile: 1
   isArea: 0
   projectile: {fileID: 8106997506381241056, guid: ad981cc412b45884f8fb9856f14b3422, type: 3}
+  projectileCount: 1

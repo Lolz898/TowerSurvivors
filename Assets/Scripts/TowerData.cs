@@ -7,6 +7,7 @@ public class TowerData : ScriptableObject
 {
     public int id;
     public string towerName;
+    public string towerDescription;
     public GameObject towerPrefab;
     public Sprite icon;
     public int goldCost = 10;

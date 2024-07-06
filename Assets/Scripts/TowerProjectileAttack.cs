@@ -30,8 +30,11 @@ public class ProjectileAttack : MonoBehaviour, IAttack
 
         for (int i = 0; i < tower.towerData.projectileCount; i++)
         {
-            ShootProjectile(target);
-            yield return new WaitForSeconds(0.0f); // Optional delay between each projectile
+            if (target != null)
+            {
+                ShootProjectile(target);
+            }
+            yield return new WaitForSeconds(0.005f); // Optional delay between each projectile
         }
     }
 

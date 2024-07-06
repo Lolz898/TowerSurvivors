@@ -71,26 +71,18 @@ public class LevelUpMenuManager : MonoBehaviour
     private void OnTowerSelected(TowerData selectedTower)
     {
         TowerManager.instance.PickTower(selectedTower.id);
-        UpdateShopWithTower(selectedTower);
         ClearTowerStats();
         towerMenuController.AddTowerButton(selectedTower.towerPrefab.GetComponent<Tower>());
         levelUpPanel.SetActive(false);
     }
 
-    // Method to update the shop with the selected tower
-    private void UpdateShopWithTower(TowerData towerData)
-    {
-        // Implement logic to add the tower to the shop interface
-        Debug.Log("Tower " + towerData.name + " added to shop.");
-    }
-
     // Method to display tower stats when hovering over a tower button
     public void ShowTowerStats(TowerData towerData)
     {
-        towerNameText.text = towerData.name;
+        towerNameText.text = towerData.name + "\n\n" + towerData.towerDescription;
         towerHealthText.text = towerData.maxhp.ToString();
         towerDamageText.text = towerData.damage.ToString();
-        towerFireRateText.text = towerData.fireRate.ToString();
+        towerFireRateText.text = towerData.fireRate.ToString() + "/s";
         towerRangeText.text = towerData.range.ToString();
         towerCostText.text = towerData.goldCost.ToString();
     }

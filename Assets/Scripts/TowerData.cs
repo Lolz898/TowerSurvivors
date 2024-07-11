@@ -19,4 +19,8 @@ public class TowerData : ScriptableObject
     public bool isArea = false;
     public GameObject projectile;
     public int projectileCount = 1;
+    public float multiProjDelay = 0.005f;
+    public float projectileSpeed = 10f;
+    public float projectileLifetime = 2f;
+    public float projectileSize = 1f;
 }

@@ -22,6 +22,11 @@ public class LevelUpMenuManager : MonoBehaviour
     private void Start()
     {
         PopulateTowerChoices();
+
+        if (GameManager.instance.isGamePaused == false)
+        {
+            GameManager.instance.TogglePauseGame();
+        }
     }
 
     // Method to show the level-up panel with tower choices
@@ -29,6 +34,11 @@ public class LevelUpMenuManager : MonoBehaviour
     {
         levelUpPanel.SetActive(true);
         PopulateTowerChoices();
+
+        if (GameManager.instance.isGamePaused == false)
+        {
+            GameManager.instance.TogglePauseGame();
+        }
     }
 
     // Method to populate the tower choice buttons
@@ -74,6 +84,11 @@ public class LevelUpMenuManager : MonoBehaviour
         ClearTowerStats();
         towerMenuController.AddTowerButton(selectedTower.towerPrefab.GetComponent<Tower>());
         levelUpPanel.SetActive(false);
+
+        if (GameManager.instance.isGamePaused == true)
+        {
+            GameManager.instance.TogglePauseGame();
+        }
     }
 
     // Method to display tower stats when hovering over a tower button

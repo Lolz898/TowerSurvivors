@@ -6,6 +6,7 @@ public class ProjectileAttack : MonoBehaviour, IAttack
 {
     private Tower tower; // Reference to the Tower component
     private bool canAttack = true;
+    private Vector3 targetLocation;
 
     private void Start()
     {
@@ -28,17 +29,16 @@ public class ProjectileAttack : MonoBehaviour, IAttack
     {
         StartCoroutine(AttackCooldown());
 
+        targetLocation = target.position;
+
         for (int i = 0; i < tower.towerData.projectileCount; i++)
         {
-            if (target != null)
-            {
-                ShootProjectile(target);
-            }
-            yield return new WaitForSeconds(0.005f); // Optional delay between each projectile
+            ShootProjectile(targetLocation);
+            yield return new WaitForSeconds(tower.towerData.multiProjDelay); // Optional delay between each projectile
         }
     }
 
-    private void ShootProjectile(Transform target)
+    private void ShootProjectile(Vector3 target)
     {
         GameObject newProjectile = Instantiate(tower.towerData.projectile, transform.position, transform.rotation);
         Projectile projectileScript = newProjectile.GetComponent<Projectile>();
@@ -46,6 +46,9 @@ public class ProjectileAttack : MonoBehaviour, IAttack
         if (projectileScript != null)
         {
             projectileScript.SetDamage(tower.towerData.damage);
+            projectileScript.SetLifetime(tower.towerData.projectileLifetime);
+            projectileScript.SetSpeed(tower.towerData.projectileSpeed);
+            projectileScript.SetSize(tower.towerData.projectileSize);
         }
 
         float angleDeviation = 0f;
@@ -56,7 +59,7 @@ public class ProjectileAttack : MonoBehaviour, IAttack
             angleDeviation = Random.Range(-10f, 10f); // 20 degrees deviation in total
         }
 
-        Vector3 directionToTarget = (target.position - transform.position).normalized;
+        Vector3 directionToTarget = (target - transform.position).normalized;
         Quaternion rotationToTarget = Quaternion.LookRotation(Vector3.forward, directionToTarget);
         rotationToTarget *= Quaternion.Euler(0, 0, angleDeviation);
         newProjectile.transform.rotation = rotationToTarget;

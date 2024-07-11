@@ -73,6 +73,11 @@ public class TowerManager : MonoBehaviour
         return availableTowers;
     }
 
+    public int GetAvailableTowerCount()
+    {
+        return (allTowers.Count - pickedTowerIds.Count);
+    }
+
     public bool IsTowerPicked(int id)
     {
         return pickedTowerIds.Contains(id);

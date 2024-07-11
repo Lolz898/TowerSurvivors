@@ -35,7 +35,11 @@ public class XPManager : MonoBehaviour
             // Increase the XP required for the next level (example logic)
             gameManager.nextLevel += 20;
 
-            levelUpMenuManager.ShowLevelUpOptions();
+            Debug.Log("available towers left: " + TowerManager.instance.GetAvailableTowerCount());
+            if (TowerManager.instance.GetAvailableTowerCount() > 0)
+            {
+                levelUpMenuManager.ShowLevelUpOptions();
+            }
         }
     }
 }

@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
         return playerXP;
     }
 
-    void TogglePauseGame()
+    public void TogglePauseGame()
     {
         isGamePaused = !isGamePaused;
 

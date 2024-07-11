@@ -27,3 +27,7 @@ MonoBehaviour:
   isArea: 0
   projectile: {fileID: 8106997506381241056, guid: ad981cc412b45884f8fb9856f14b3422, type: 3}
   projectileCount: 5
+  multiProjDelay: 0.005
+  projectileSpeed: 8
+  projectileLifetime: 0.5
+  projectileSize: 0.7

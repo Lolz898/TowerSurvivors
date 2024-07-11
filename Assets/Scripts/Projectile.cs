@@ -13,9 +13,6 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
-        // Set the size of the projectile
-        transform.localScale = new Vector3(size, size, 1);
-
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = transform.up * speed;
 
@@ -32,6 +29,21 @@ public class Projectile : MonoBehaviour
     public void SetDamage(int damageValue)
     {
         damage = damageValue;
+    }
+
+    public void SetSize(float sizeValue) 
+    { 
+        size = sizeValue; 
+    }
+
+    public void SetLifetime(float lifetimeValue)
+    {
+        lifetime = lifetimeValue;
+    }
+
+    public void SetSpeed(float speedValue)
+    {
+        speed = speedValue;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

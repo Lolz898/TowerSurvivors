@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public int playerLevel = 0;
     public int nextLevel = 70;
     public bool isGamePaused = false;
+    public bool isLevelMenuOpen = false;
 
     public GameObject playerBase;
 
@@ -62,7 +63,10 @@ public class GameManager : MonoBehaviour
         // Example: Toggle pause with the "P" key or Escape key
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
         {
-            TogglePauseGame();
+            if (!isLevelMenuOpen)
+            {
+                TogglePauseGame();
+            }
         }
     }
 

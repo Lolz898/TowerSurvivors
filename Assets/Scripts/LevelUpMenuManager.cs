@@ -44,6 +44,8 @@ public class LevelUpMenuManager : MonoBehaviour
     // Method to populate the tower choice buttons
     private void PopulateTowerChoices()
     {
+        GameManager.instance.isLevelMenuOpen = true;
+
         availableTowers = TowerManager.instance.GetAvailableTowers();
 
         // Shuffle the available towers to get random choices
@@ -84,6 +86,8 @@ public class LevelUpMenuManager : MonoBehaviour
         ClearTowerStats();
         towerMenuController.AddTowerButton(selectedTower.towerPrefab.GetComponent<Tower>());
         levelUpPanel.SetActive(false);
+
+        GameManager.instance.isLevelMenuOpen = false;
 
         if (GameManager.instance.isGamePaused == true)
         {

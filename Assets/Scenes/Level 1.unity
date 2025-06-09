@@ -4351,6 +4351,7 @@ MonoBehaviour:
   playerLevel: 0
   nextLevel: 10
   isGamePaused: 0
+  isLevelMenuOpen: 0
   playerBase: {fileID: 496504723347836224, guid: 47850cc7cab01a244823cdbe0d928f4a, type: 3}
 --- !u!114 &1964253612
 MonoBehaviour:
@@ -4370,6 +4371,10 @@ MonoBehaviour:
       quantity: 10
       timeBetweenUnits: 1
       timeBeforeNextSend: 15
+    - unit: {fileID: 3426461990056083139, guid: 228d12fc7db33ee42a996339a0fc52d8, type: 3}
+      quantity: 5
+      timeBetweenUnits: 0.1
+      timeBeforeNextSend: 2
     - unit: {fileID: 3426461990056083139, guid: 50f48f8218b675b44aa25ee1e8f434d7, type: 3}
       quantity: 5
       timeBetweenUnits: 0.1

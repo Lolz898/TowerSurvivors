@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
     public float size = 1f;
 
     private Rigidbody2D rb;
+    BuffDebuff speedBuff = new SpeedBuff(3f, 0.3f);
 
     private void Start()
     {
@@ -51,6 +52,7 @@ public class Projectile : MonoBehaviour
         // Check if the collision is with a valid enemy unit
         if (IsValidTarget(collision.collider))
         {
+            speedBuff.ApplyEffect(collision.collider.gameObject);
             // Deal damage to the enemy unit and destroy the projectile
             collision.collider.GetComponent<Unit>().TakeDamage(damage);
             Destroy(gameObject);

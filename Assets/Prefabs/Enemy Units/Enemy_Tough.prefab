@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -4354449598348653090}
   - component: {fileID: 1904469662493927081}
   m_Layer: 8
-  m_Name: Enemy
+  m_Name: Enemy_Tough
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 687451810955950263}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.003921591, g: 0.0476589, b: 0.7921569, a: 1}
+  m_Color: {r: 0.7921569, g: 0.003921591, b: 0.7045304, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -137,21 +137,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEnemy: 1
-  maxhp: 2
+  maxhp: 20
   currenthp: 0
-  baseMoveSpeed: 3
-  modifiedMoveSpeed: 3
+  baseMoveSpeed: 2
+  modifiedMoveSpeed: 2
   baseSightRange: 5
   modifiedSightRange: 5
   baseAttackRange: 0.5
   modifiedAttackRange: 0.5
-  attackSpeed: 1
-  baseDamage: 1
-  modifiedDamage: 1
-  baseGoldReward: 1
-  modifiedGoldReward: 1
-  baseXPReward: 1
-  modifiedXPReward: 1
+  attackSpeed: 0.5
+  baseDamage: 3
+  modifiedDamage: 3
+  baseGoldReward: 3
+  modifiedGoldReward: 3
+  baseXPReward: 3
+  modifiedXPReward: 3
   target: {fileID: 0}
   currentState: 0
 --- !u!114 &-4354449598348653090

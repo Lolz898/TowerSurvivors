@@ -20,13 +20,26 @@ public class Unit : MonoBehaviour
     public bool isEnemy = true;
     public int maxhp = 1;
     public int currenthp = 0;
-    public float moveSpeed = 3f;
-    public float sightRange = 5f;
-    public float attackRange = 0.5f;
+
+    public float baseMoveSpeed = 3f;
+    public float modifiedMoveSpeed = 3f;
+
+    public float baseSightRange = 5f;
+    public float modifiedSightRange = 5f;
+
+    public float baseAttackRange = 0.5f;
+    public float modifiedAttackRange = 0.5f;
+
     public float attackSpeed = 1f;
-    public int attackDamage = 1;
-    public int goldReward = 0;
-    public int xpReward = 0;
+
+    public int baseDamage = 1;
+    public int modifiedDamage = 1;
+
+    public int baseGoldReward = 0;
+    public int modifiedGoldReward = 0;
+
+    public int baseXPReward = 0;
+    public int modifiedXPReward = 0;
 
     [SerializeField] private Transform target;
     private NavMeshAgent agent;
@@ -42,7 +55,7 @@ public class Unit : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-        agent.speed = moveSpeed;
+        agent.speed = modifiedMoveSpeed;
 
         currenthp = maxhp;
         healthbar = GetComponentInChildren<Healthbar>();
@@ -85,7 +98,7 @@ public class Unit : MonoBehaviour
         }
 
         // Check for all valid unit targets in range
-        Collider2D[] targets = Physics2D.OverlapCircleAll((Vector2)transform.position, sightRange);
+        Collider2D[] targets = Physics2D.OverlapCircleAll((Vector2)transform.position, modifiedSightRange);
 
         // Set the closest valid unit as the target
         float closestDistance = Mathf.Infinity;
@@ -119,7 +132,7 @@ public class Unit : MonoBehaviour
             }
         }
         // Handle the case where the target is out of sight range
-        else if (target != null && Vector3.Distance(transform.position, target.position) > sightRange)
+        else if (target != null && Vector3.Distance(transform.position, target.position) > modifiedSightRange)
         {
             target = null;
         }
@@ -183,7 +196,7 @@ public class Unit : MonoBehaviour
             }
 
             // Check if the target is within attack range
-            if (Vector3.Distance(transform.position, target.position) <= attackRange)
+            if (Vector3.Distance(transform.position, target.position) <= modifiedAttackRange)
             {
                 if (currentState != UnitState.Attacking)
                 {
@@ -214,15 +227,15 @@ public class Unit : MonoBehaviour
         // Attack the target
         if (target.GetComponent<PlayerBase>() != null)
         {
-            target.GetComponent<PlayerBase>().TakeDamage(attackDamage);
+            target.GetComponent<PlayerBase>().TakeDamage(modifiedDamage);
         }
         else if (target.GetComponent<Unit>() != null)
         {
-            target.GetComponent<Unit>().TakeDamage(attackDamage);
+            target.GetComponent<Unit>().TakeDamage(modifiedDamage);
         }
         else if (target.GetComponent<Tower>() != null)
         {
-            target.GetComponent<Tower>().TakeDamage(attackDamage);
+            target.GetComponent<Tower>().TakeDamage(modifiedDamage);
         }
 
         // Set a cooldown for the next attack based on attack speed
@@ -249,8 +262,8 @@ public class Unit : MonoBehaviour
     private void Die()
     {
         SetState(UnitState.Dead);
-        gameManager.ChangeGold(goldReward);
-        gameManager.ChangeXP(xpReward);
+        gameManager.ChangeGold(modifiedGoldReward);
+        gameManager.ChangeXP(modifiedXPReward);
         Destroy(gameObject);
     }
 
